@@ -31,6 +31,8 @@
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
     "@mui/x-data-grid": "^7.5.0",
+    "@types/node": "^20.12.12",
+    "axios": "^1.6.8",
     "react-router-dom": "^6.23.1"
   }
 }

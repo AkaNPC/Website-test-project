@@ -1,10 +1,11 @@
 import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { getDeviceById } from '../../services/apiData';
+import { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../context/AuthProvider';
+import AlertModal from '../../components/modal/AlertModal';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -36,7 +37,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
@@ -48,33 +48,57 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+
 export default function SearchField() {
+    const { email, password, toggleShowModal, setErrorMsg } = useContext(AuthContext);
+    const [id, setId] = useState(0);
+    const { devicesData, setDevicesData } = useContext(AuthContext);
+
+    useEffect(() => {
+    }, [devicesData])
+
+    const fetchDeviceData = async () => {
+        try {
+            const response = await getDeviceById(id, email, password);
+            if (!response.id) {
+                setErrorMsg('Устройства с данным id нет в базе. Проверьте еще раз id');
+                toggleShowModal(true);
+            } else {
+                setDevicesData([response]);
+            }
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        await fetchDeviceData()
+    }
+
+
     return (
-        <Box>
-            <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                sx={{ mr: 2 }}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-                MUI
-            </Typography>
+        <Box component="form" name="search" onSubmit={handleSubmit}>
+            <AlertModal />
             <Search>
                 <SearchIconWrapper>
                     <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
-                    placeholder="Search…"
+                    placeholder="Type id and press Enter..."
                     inputProps={{ 'aria-label': 'search' }}
+                    value={id}
+                    onChange={(e) => {
+                        const value = e.currentTarget.value;
+                        const reg = /^[0-9\b]+$/;
+
+                        if (reg.test(value)) {
+                            setId(+value)
+                        } else {
+                            setId(0)
+                        }
+                    }}
                 />
             </Search>
         </Box>

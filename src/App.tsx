@@ -1,13 +1,15 @@
-import NavBar from "./components/AppBar";
 import Login from "./pages/Login";
-import DataGridDemo from "./components/DeviceList";
+import DeviceList from "./pages/DeviceList/DeviceList";
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider";
+import PrivateRoute from "./utils/PrivateRoute";
+import NavBar from "./components/NavBar";
+import { Outlet } from "react-router-dom";
 import Home from "./pages/Home";
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import './App.css';
-import { Outlet } from 'react-router-dom';
 
 
 export default function App() {
+
   const NavBarLayout = () => (
     <>
       <NavBar />
@@ -15,16 +17,26 @@ export default function App() {
     </>
   );
 
-
-  return (
-    <Router>
-      <Routes>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
         <Route element={<NavBarLayout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/devicelist" element={<DataGridDemo />} />
+          <Route path="/" element={<Home />} />
+          <Route path="devicelist" element={
+            <PrivateRoute>
+              <DeviceList />
+            </PrivateRoute>} />
         </Route>
         <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+        <Route path="*" element={<p>Страница не найдена. Ошибка 404!</p>} />
+      </Route>
+    )
+  );
+
+
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   )
 }
