@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState, useContext, useEffect } from 'react';
-import AuthContext from '../context/AuthProvider';
+import AuthContext from '../context/DataProvider';
 import { useNavigate } from 'react-router-dom'
 import { setAuthSession } from '../services/apiData';
 import AlertModal from '../components/modal/AlertModal';

@@ -2,7 +2,7 @@ import { useState, createContext, ReactNode } from "react";
 import { Dispatch, SetStateAction } from "react";
 
 
-interface IAuthContext {
+interface IDataContext {
     authStatus: boolean;
     showModal: boolean;
     errorMsg: string;
@@ -29,7 +29,7 @@ interface IAuthContext {
     }[] | []>>
 }
 
-const AuthContext = createContext<IAuthContext>({
+const DataContext = createContext<IDataContext>({
     authStatus: false,
     showModal: false,
     errorMsg: "",
@@ -50,11 +50,11 @@ const AuthContext = createContext<IAuthContext>({
     setDevicesData: () => { }
 });
 
-type AuthStatusProps = {
+type StatusProps = {
     children: ReactNode;
 }
 
-export const AuthProvider = ({ children }: AuthStatusProps) => {
+export const DataProvider = ({ children }: StatusProps) => {
     const [authStatus, setAuthStatus] = useState(false);
     const [showModal, toggleShowModal] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
@@ -69,10 +69,10 @@ export const AuthProvider = ({ children }: AuthStatusProps) => {
     }])
 
     return (
-        <AuthContext.Provider value={{ authStatus, showModal, errorMsg, email, password, devicesData, setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword, setDevicesData }}>
+        <DataContext.Provider value={{ authStatus, showModal, errorMsg, email, password, devicesData, setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword, setDevicesData }}>
             {children}
-        </AuthContext.Provider>
+        </DataContext.Provider>
     )
 }
 
-export default AuthContext;
+export default DataContext;

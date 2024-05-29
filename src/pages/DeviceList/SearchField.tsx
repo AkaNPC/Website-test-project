@@ -4,7 +4,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { getDeviceById } from '../../services/apiData';
 import { useState, useContext, useEffect } from 'react';
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from '../../context/DataProvider';
 import AlertModal from '../../components/modal/AlertModal';
 
 const Search = styled('div')(({ theme }) => ({

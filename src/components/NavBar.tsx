@@ -15,7 +15,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthProvider';
+import AuthContext from '../context/DataProvider';
 import { useContext } from 'react';
 
 

@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import SearchField from './SearchField';
 import { getAllDevices } from '../../services/apiData';
 import { useContext, useEffect } from 'react';
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from '../../context/DataProvider';
 import AlertModal from '../../components/modal/AlertModal';
 
 

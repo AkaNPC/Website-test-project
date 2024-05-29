@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import DevicesNavBar from './DevicesNavBar';
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from '../../context/DataProvider';
 import { useContext, useEffect } from 'react';
 import { formatDate } from '../../utils/formatDate';
 import AlertModal from '../../components/modal/AlertModal';
