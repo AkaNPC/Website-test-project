@@ -16,7 +16,7 @@ import AlertModal from '../../components/modal/AlertModal';
 
 export default function DevicesNavBar() {
 
-    const { email, password, devicesData, setDevicesData, setErrorMsg } = useContext(AuthContext);
+    const { email, password, devicesData, setDevicesData, toggleShowModal, setErrorMsg } = useContext(AuthContext);
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
     useEffect(() => {
@@ -27,6 +27,7 @@ export default function DevicesNavBar() {
             const response = await getAllDevices(email, password);
             if (response.length === 0) {
                 setErrorMsg('Не получилось загрузить данные. Попробуйте позже');
+                toggleShowModal(true);
             } else {
                 setDevicesData(response);
             }

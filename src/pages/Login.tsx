@@ -34,7 +34,7 @@ function Copyright() {
 
 export default function Login() {
 
-    const { authStatus, email, password, setAuthStatus, setErrorMsg, setEmail, setPassword } = useContext(AuthContext);
+    const { authStatus, email, password, setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword } = useContext(AuthContext);
     const [errorMail, setMailError] = useState(false);
     const [errorPwd, setPwdError] = useState(false);
     const navigate = useNavigate();
@@ -54,9 +54,11 @@ export default function Login() {
                 navigate('/');
             } else if (response?.status === 401) {
                 setErrorMsg("Email или Пароль неверен. Вы не авторизованы");
+                toggleShowModal(true);
                 setAuthStatus(false);
             } else {
                 setErrorMsg('Вход не выполнен...');
+                toggleShowModal(true);
                 setAuthStatus(false);
             }
         } catch (error) {

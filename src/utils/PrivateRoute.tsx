@@ -8,8 +8,10 @@ interface Props {
 }
 
 const PrivateRoute = ({ children }: Props) => {
-    const { authStatus } = useContext(AuthContext);
+    const { toggleShowModal, setErrorMsg, authStatus } = useContext(AuthContext);
     if (!authStatus) {
+        setErrorMsg("Доступ ограничен! Вы перенаправлены на страницу авторизации");
+        toggleShowModal(true);
         return <Navigate to="/login" replace />
     }
     return children;
