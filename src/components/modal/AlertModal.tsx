@@ -4,13 +4,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import AuthContext from '../../context/DataProvider';
+import DataContext from '../../context/DataProvider';
 import { useContext } from 'react';
 
 
 export default function AlertModal() {
-  const { showModal, toggleShowModal } = useContext(AuthContext);
-  const { errorMsg, setErrorMsg } = useContext(AuthContext);
+  const { showModal, toggleShowModal } = useContext(DataContext);
+  const { errorMsg, setErrorMsg } = useContext(DataContext);
 
   const handleClose = () => {
     setErrorMsg("");

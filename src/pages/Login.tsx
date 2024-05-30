@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState, useContext, useEffect } from 'react';
-import AuthContext from '../context/DataProvider';
+import DataContext from '../context/DataProvider';
 import { useNavigate } from 'react-router-dom'
 import { setAuthSession } from '../services/apiData';
 import AlertModal from '../components/modal/AlertModal';
@@ -34,7 +34,7 @@ function Copyright() {
 
 export default function Login() {
 
-    const { authStatus, email, password, setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword } = useContext(AuthContext);
+    const { authStatus, email, password, setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword } = useContext(DataContext);
     const [errorMail, setMailError] = useState(false);
     const [errorPwd, setPwdError] = useState(false);
     const navigate = useNavigate();

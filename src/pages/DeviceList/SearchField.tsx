@@ -4,7 +4,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { getDeviceById } from '../../services/apiData';
 import { useState, useContext, useEffect } from 'react';
-import AuthContext from '../../context/DataProvider';
+import DataContext from '../../context/DataProvider';
 import AlertModal from '../../components/modal/AlertModal';
 
 const Search = styled('div')(({ theme }) => ({
@@ -50,9 +50,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function SearchField() {
-    const { email, password, toggleShowModal, setErrorMsg } = useContext(AuthContext);
+    const { email, password, devicesData, toggleShowModal, setDevicesData, setErrorMsg } = useContext(DataContext);
     const [id, setId] = useState(0);
-    const { devicesData, setDevicesData } = useContext(AuthContext);
 
     useEffect(() => {
     }, [devicesData])

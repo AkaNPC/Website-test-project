@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
-import AuthContext from "../context/DataProvider";
+import DataContext from "../context/DataProvider";
 import { ReactNode } from "react";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const PrivateRoute = ({ children }: Props) => {
-    const { toggleShowModal, setErrorMsg, authStatus } = useContext(AuthContext);
+    const { toggleShowModal, setErrorMsg, authStatus } = useContext(DataContext);
     if (!authStatus) {
         setErrorMsg("Доступ ограничен! Вы перенаправлены на страницу авторизации");
         toggleShowModal(true);

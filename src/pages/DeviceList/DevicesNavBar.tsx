@@ -10,13 +10,13 @@ import Button from '@mui/material/Button';
 import SearchField from './SearchField';
 import { getAllDevices } from '../../services/apiData';
 import { useContext, useEffect } from 'react';
-import AuthContext from '../../context/DataProvider';
+import DataContext from '../../context/DataProvider';
 import AlertModal from '../../components/modal/AlertModal';
 
 
 export default function DevicesNavBar() {
 
-    const { email, password, devicesData, setDevicesData, toggleShowModal, setErrorMsg } = useContext(AuthContext);
+    const { email, password, devicesData, setDevicesData, toggleShowModal, setErrorMsg } = useContext(DataContext);
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
     useEffect(() => {
