@@ -15,7 +15,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/DataProvider';
+import DataContext from '../context/DataProvider';
 import { useContext } from 'react';
 
 
@@ -33,7 +33,7 @@ function formatLinkTo(pageName: string) {
 export default function NavBar() {
 
     const navigate = useNavigate()
-    const { setAuthStatus, setEmail, setPassword, setDevicesData } = useContext(AuthContext);
+    const { setAuthStatus, setEmail, setPassword, setDevicesData } = useContext(DataContext);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
