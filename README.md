@@ -1,217 +1,102 @@
-<a name="readme-top"></a>
+# Website test project
+> Using API for an authentication (basic auth) and get data
+
+It's my implementation of a Tech task. Techs/tools used:
+
+- Vite
+- React
+- Typescript
+- MUI
+- React router
+- Axios
+
+## Demo
+
+![Demo gif of App](././public/images/demo.gif)
 
 
-<br />
-<div align="center">
-
-  <h3 align="center">Website-Test-Project</h3>
-
-  <p align="center">
-    Simple site with a server authentification and getData API requests.
-    <br />
-    
-  </p>
-</div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-<video width="1280" height="720" controls>
-  <source src="https://drive.google.com/file/d/13UcfjstSurK5oOroIv8zLDDXlfEoWYFa/view?usp=sharing" type="video/mp4">
-</video>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![React][React.js]][React-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+## Installing / Getting started
 
 1. Clone the repo
    ```sh
    git clone https://github.com/AkaNPC/Website-test-project.git
    ```
-2. Install NPM packages
+2. Open projects directory
+   ```sh
+   cd Website-test-project/
+   ```
+3. Install NPM packages
    ```sh
    npm install
    ```
+4. Start app
+   ```sh
+   npm run dev
+   ```
+   or
+   ```sh
+   npm run
+   ```
 
+## Features
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+- You need to login/authenticate for going to DeviceList page (protected route)
+- If you don't have email, password for login (server has basic auth method), you can request them by text me a message to email (see [Links](#links))
+- You will see Modal error window, if login is failed (empty fields, incorrect password etc.)
+- After successful auth you will redirect to Home page
+- You can logout by clicking Profile - Logout button in NavBar (with redirection to Login page)
+- In DeviceList page you can click Show All for rendering all devices list from API data or find only one device by entering specific id in Search input field. Server data object has only two id by default (2 and 9).
+- If you'll enter other id values in Search input field, you'll get an error (Modal window)
+-you can change colors of app elements (text, bg etc.) by changing color codes in custom MUI theme creator in main.tsx file (root directory)
 
+## File Structure
 
+ ```sh
+ ┣ public
+ ┃ ┗ images
+ ┃ ┃ ┣ demo.gif
+ ┃ ┃ ┣ favicon.ico
+ ┃ ┃ ┗ homeBgImage.jpg
+ ┣ src
+ ┃ ┣ components
+ ┃ ┃ ┣ modal
+ ┃ ┃ ┃ ┗ AlertModal.tsx
+ ┃ ┃ ┗ NavBar.tsx
+ ┃ ┣ context
+ ┃ ┃ ┗ DataProvider.tsx
+ ┃ ┣ pages
+ ┃ ┃ ┣ DeviceList
+ ┃ ┃ ┃ ┣ DeviceList.tsx
+ ┃ ┃ ┃ ┣ DevicesNavBar.tsx
+ ┃ ┃ ┃ ┗ SearchField.tsx
+ ┃ ┃ ┣ Home.tsx
+ ┃ ┃ ┗ Login.tsx
+ ┃ ┣ services
+ ┃ ┃ ┗ apiData.tsx
+ ┃ ┣ utils
+ ┃ ┃ ┣ formatDate.tsx
+ ┃ ┃ ┗ PrivateRoute.tsx
+ ┃ ┣ App.tsx
+ ┃ ┣ main.tsx
+ ┃ ┗ vite-env.d.ts
+ ┣ .eslintrc.cjs
+ ┣ .gitignore
+ ┣ index.html
+ ┣ package-lock.json
+ ┣ package.json
+ ┣ README.md
+ ┣ tsconfig.json
+ ┣ tsconfig.node.json
+ ┗ vite.config.ts
+   ```
 
-<!-- USAGE EXAMPLES -->
-## Usage
+## Links
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Project homepage: https://github.com/AkaNPC/Website-test-project
+  - If you have some ideas or in case of issues or sensitive bugs, please contact
+    rtrkarat@gmail.com directly. I value your effort
+    to improve this project!
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+## Licensing
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Project Link: [[https://github.com/your_username/repo_name](https://github.com/AkaNPC/Website-test-project)](https://github.com/your_username/repo_name](https://github.com/AkaNPC/Website-test-project))
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# React + TypeScript + MUI
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+"The code in this project is licensed under GNU Affero General Public License v3.0."
