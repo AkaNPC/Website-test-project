@@ -47,7 +47,7 @@ It's my implementation of a Tech task. Techs/tools used:
 - You can logout by clicking Profile - Logout button in NavBar (with redirection to Login page)
 - In DeviceList page you can click Show All for rendering all devices list from API data or find only one device by entering specific id in Search input field. Server data object has only two id by default (2 and 9).
 - If you'll enter other id values in Search input field, you'll get an error (Modal window)
--you can change colors of app elements (text, bg etc.) by changing color codes in custom MUI theme creator in main.tsx file (root directory)
+- You can change colors of app elements (text, bg etc.) by changing color codes in custom MUI theme creator in main.tsx file (root directory)
 
 ## File Structure
 
