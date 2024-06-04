@@ -4,22 +4,20 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../context/DataProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import Divider from '@mui/material/Divider';
 
 
-const pages = ['home', 'device list', 'login'];
+const linksNames = ['home', 'device list', 'login'];
 
 function formatLinkTo(pageName: string) {
     let newPageName;
@@ -33,7 +31,8 @@ function formatLinkTo(pageName: string) {
 export default function NavBar() {
 
     const navigate = useNavigate()
-    const { setAuthStatus, setEmail, setPassword, setDevicesData } = useContext(DataContext);
+    const { authStatus, setAuthStatus, setEmail, setPassword, setDevicesData } = useContext(DataContext);
+    const [open, setOpen] = useState(false);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -62,10 +61,6 @@ export default function NavBar() {
         navigate('/login')
     }
 
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
     const menuId = 'primary-search-account-menu';
 
     const renderMenu = (
@@ -85,7 +80,8 @@ export default function NavBar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogout}>{authStatus ? "Logout" : "Login"}</MenuItem>
         </Menu>
     );
 
@@ -107,26 +103,6 @@ export default function NavBar() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={0} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={0} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     size="large"
@@ -142,12 +118,41 @@ export default function NavBar() {
         </Menu>
     );
 
+    const navItemsList = linksNames.map((linkName) => (
+        <Link
+            unstable_viewTransition
+            key={linkName}
+            to={'/' + formatLinkTo(linkName)}
+            style={{ textDecoration: 'none' }}>
+            <Button onClick={() => setDevicesData([])}
+                sx={{ my: 2, color: 'white', display: 'block' }}>{linkName}
+            </Button>
+            <Divider sx={{ display: { xs: '', sm: '', md: 'none', lg: 'none', xl: 'none' } }} />
+        </Link >
+    ));
+
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
+        <AppBar position="static">
+            <Toolbar>
+                <Box sx={{ flexGrow: 1, display: { xs: '', sm: '', md: 'none', lg: 'none', xl: 'none', flexDirection: 'column' } }}>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                    >
+                        <SwipeableDrawer
+                            transitionDuration={500}
+                            anchor={'top'}
+                            open={open}
+                            onClick={() => setOpen(false)}
+                            onClose={() => setOpen(false)}
+                            onOpen={() => setOpen(true)}
+                        >{navItemsList}
+                        </SwipeableDrawer>
+                    </Typography>
                     <IconButton
+                        onClick={() => setOpen(true)}
                         size="large"
                         edge="start"
                         color="inherit"
@@ -156,72 +161,36 @@ export default function NavBar() {
                     >
                         <MenuIcon />
                     </IconButton>
+                </Box>
+
+                <Box sx={{
+                    flexGrow: 1,
+                }}>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
-                                <Link
-                                    unstable_viewTransition
-                                    key={page}
-                                    to={'/' + formatLinkTo(page)}
-                                    style={{ textDecoration: 'none' }}>
-                                    <Button onClick={() => setDevicesData([])}
-                                        sx={{ my: 2, color: 'white', display: 'block' }}>{page}
-                                    </Button>
-                                </Link >
-                            ))}
-                        </Box>
-
+                        sx={{ display: { xs: 'none', sm: 'none', md: 'flex', lg: 'flex', xl: 'flex' } }}
+                    > {navItemsList}
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={0} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={0} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
-                </Toolbar>
-            </AppBar>
+                </Box>
+
+                <Box sx={{ display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex', xl: 'flex' } }}>
+                    <IconButton
+                        size="large"
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                </Box>
+            </Toolbar>
             {renderMobileMenu}
             {renderMenu}
-        </Box>
+        </AppBar>
     );
 }
