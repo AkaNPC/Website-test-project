@@ -5,22 +5,26 @@ export default function Home() {
     return (
         <>
             <Box sx={{
-                backgroundImage: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
+                backgroundImage: { xs: `linear-gradient(0deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, sm: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, md: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, lg: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, xl: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')` },
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'right',
-                margin: 'auto',
-                height: '70vh',
+                height: { xs: '40vh', sm: '40vh', md: '70vh', lg: '70vh', xl: '70vh' },
                 width: '100vw',
                 position: 'relative',
                 backgroundColor: '#faf7f2',
+                display: 'flex',
+                alignItems: { xs: 'start', sm: 'start', md: 'center', lg: 'center', xl: 'center' }
             }}>
-                <Box>
+                <Box sx={{
+                    mr: { md: 5, lg: 7, xl: 7 },
+                    ml: { xs: 1, sm: 1 },
+                    flexGrow: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: { xs: 'start', sm: 'start', md: 'end', lg: 'end', xl: 'end' }
+                }}>
                     <Typography
                         fontWeight={'bold'}
-                        mr={5}
                         color={'#2d3449'}
                         variant="h2"
                         gutterBottom>
@@ -29,14 +33,23 @@ export default function Home() {
                     <Typography
                         fontWeight={'bold'}
                         fontSize={'2rem'}
-                        mr={5}
                         color={'#fff'}
                         variant="subtitle1"
                         gutterBottom>
                         Some Text
                     </Typography>
                 </Box>
-            </Box>
+            </Box >
+            <Typography
+                m={3}
+                fontSize={'1.5rem'}
+                color={'#37405c'}
+                variant="subtitle1"
+                gutterBottom>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, voluptates consectetur.
+                Totam repellendus voluptatem assumenda ullam quae natus dignissimos quasi doloribus in iusto aliquam itaque,
+                voluptates officiis! Illo, ex explicabo?
+            </Typography>
         </>
     );
 }
