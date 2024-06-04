@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import DevicesNavBar from './DevicesNavBar';
 import DataContext from '../../context/DataProvider';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { formatDate } from '../../utils/formatDate';
 import AlertModal from '../../components/modal/AlertModal';
 
@@ -10,9 +10,6 @@ import AlertModal from '../../components/modal/AlertModal';
 export default function DeviceList() {
 
     const { devicesData } = useContext(DataContext);
-
-    useEffect(() => {
-    }, [devicesData])
 
     const columns: GridColDef<(typeof devicesData)[number]>[] = [
         {
@@ -67,9 +64,8 @@ export default function DeviceList() {
         <>
             <DevicesNavBar />
             <AlertModal />
-            <Box sx={{ height: 400, width: '100%' }}>
+            <Box sx={{ height: '80vh', width: '100%' }}>
                 <DataGrid
-                    // disableColumnSorting
                     rows={devicesData}
                     columns={columns}
                     initialState={{
@@ -82,6 +78,7 @@ export default function DeviceList() {
                     pageSizeOptions={[10]}
                     checkboxSelection
                     disableRowSelectionOnClick
+                    disableColumnMenu
                 />
             </Box>
         </>
