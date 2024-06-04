@@ -14,6 +14,7 @@ const theme = createTheme({
       main: '#57b4e1',
       contrastText: '#ffffff',
       dark: '#2d3449',
+      light: '#639dcc',
     },
     secondary: {
       main: '#3f86ba',
@@ -23,14 +24,17 @@ const theme = createTheme({
     text: {
       primary: '#2d3449',
       secondary: '#2d3449',
+      disabled: '#d1d2d5',
     },
     background: {
       default: '#ffffff',
+      paper: '#639dcc'
     },
   },
   mixins: {
     toolbar: {
-      backgroundColor: "transparent",
+      background: 'transparent',
+      boxShadow: 'none'
     },
   },
 });
