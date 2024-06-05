@@ -8,6 +8,7 @@ interface IDataContext {
     errorMsg: string;
     email: string;
     password: string;
+    loading: boolean;
     devicesData: {
         id: number;
         name: string;
@@ -20,6 +21,7 @@ interface IDataContext {
     setErrorMsg: Dispatch<SetStateAction<string>>
     setEmail: Dispatch<SetStateAction<string>>
     setPassword: Dispatch<SetStateAction<string>>
+    setLoading: Dispatch<SetStateAction<boolean>>
     setDevicesData: Dispatch<SetStateAction<{
         id: number;
         name: string;
@@ -35,6 +37,7 @@ const DataContext = createContext<IDataContext>({
     errorMsg: "",
     email: "",
     password: "",
+    loading: false,
     devicesData: {
         id: 0,
         name: "",
@@ -47,6 +50,7 @@ const DataContext = createContext<IDataContext>({
     setErrorMsg: () => { },
     setEmail: () => { },
     setPassword: () => { },
+    setLoading: () => { },
     setDevicesData: () => { }
 });
 
@@ -60,6 +64,7 @@ export const DataProvider = ({ children }: StatusProps) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const [devicesData, setDevicesData] = useState([{
         id: 0,
         name: "",
@@ -69,7 +74,10 @@ export const DataProvider = ({ children }: StatusProps) => {
     }])
 
     return (
-        <DataContext.Provider value={{ authStatus, showModal, errorMsg, email, password, devicesData, setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword, setDevicesData }}>
+        <DataContext.Provider value={{
+            authStatus, showModal, errorMsg, email, password, loading, devicesData,
+            setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword, setLoading, setDevicesData
+        }}>
             {children}
         </DataContext.Provider>
     )
