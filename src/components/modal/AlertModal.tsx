@@ -1,9 +1,4 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material/';
 import DataContext from '../../context/DataProvider';
 import { useContext } from 'react';
 
@@ -29,13 +24,20 @@ export default function AlertModal() {
         {"Ошибка!"}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText sx={{
+          color: 'rgb(56, 88, 158)'
+        }} id="alert-dialog-description">
           {errorMsg}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} autoFocus>
-          Ясно
+        <Button sx={{
+          color: 'white', bgcolor: '#507fe3',
+          "&:hover": {
+            bgcolor: 'rgb(115, 152, 232)'
+          }
+        }} onClick={handleClose} autoFocus>
+          Ок
         </Button>
       </DialogActions>
     </Dialog>
