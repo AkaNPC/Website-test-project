@@ -1,20 +1,11 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import { AppBar, Box, Toolbar, IconButton, Typography, MenuItem, Menu, SwipeableDrawer, Button, Divider } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../context/DataProvider';
 import { useContext, useState } from 'react';
-import Divider from '@mui/material/Divider';
 
 
 const linksNames = ['home', 'device list', 'login'];
@@ -79,9 +70,17 @@ export default function NavBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem sx={{
+                "&:hover": {
+                    textDecoration: 'underline rgb(56, 88, 158)'
+                }
+            }} onClick={handleMenuClose}>Settings</MenuItem>
             <Divider />
-            <MenuItem onClick={handleLogout}>{authStatus ? "Logout" : "Login"}</MenuItem>
+            <MenuItem sx={{
+                "&:hover": {
+                    textDecoration: 'underline rgb(56, 88, 158)'
+                }
+            }} onClick={handleLogout}>{authStatus ? "Logout" : "Login"}</MenuItem>
         </Menu>
     );
 
@@ -125,7 +124,12 @@ export default function NavBar() {
             to={'/' + formatLinkTo(linkName)}
             style={{ textDecoration: 'none' }}>
             <Button onClick={() => setDevicesData([])}
-                sx={{ my: 2, color: 'white', display: 'block' }}>{linkName}
+                sx={{
+                    my: 2, color: { xs: '#37405c', sm: '#37405c', md: '#ffffff', lg: '#ffffff', xl: '#ffffff' },
+                    "&:hover": {
+                        textDecoration: 'underline #ffffff'
+                    }, display: 'block', fontWeight: 'bold'
+                }}>{linkName}
             </Button>
             <Divider sx={{ display: { xs: '', sm: '', md: 'none', lg: 'none', xl: 'none' } }} />
         </Link >
