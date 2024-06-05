@@ -1,5 +1,5 @@
-import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Grid, Skeleton, Box } from '@mui/material';
 import DevicesNavBar from './DevicesNavBar';
 import DataContext from '../../context/DataProvider';
 import { useContext } from 'react';
@@ -9,7 +9,7 @@ import AlertModal from '../../components/modal/AlertModal';
 
 export default function DeviceList() {
 
-    const { devicesData } = useContext(DataContext);
+    const { devicesData, loading } = useContext(DataContext);
 
     const columns: GridColDef<(typeof devicesData)[number]>[] = [
         {
@@ -19,6 +19,8 @@ export default function DeviceList() {
             editable: false,
             headerAlign: 'left',
             align: 'left',
+            flex: 1,
+            minWidth: 70
         },
         {
             field: 'name',
@@ -27,14 +29,18 @@ export default function DeviceList() {
             editable: false,
             headerAlign: 'left',
             align: 'left',
+            flex: 1,
+            minWidth: 150
         },
         {
             field: 'uniqueId',
-            headerName: 'UniqueId',
+            headerName: 'Unique Id',
             type: 'string',
             editable: false,
             headerAlign: 'left',
             align: 'left',
+            flex: 1,
+            minWidth: 120
         },
         {
             field: 'status',
@@ -43,6 +49,8 @@ export default function DeviceList() {
             editable: false,
             headerAlign: 'left',
             align: 'left',
+            flex: 1,
+            minWidth: 100
         },
         {
             field: 'lastUpdate',
@@ -56,9 +64,42 @@ export default function DeviceList() {
             editable: false,
             headerAlign: 'left',
             align: 'left',
+            flex: 1,
+            minWidth: 170
         }
     ];
 
+    function SkeletonRow() {
+        return (
+            <>
+                <Grid item xs={1}>
+                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
+                </Grid>
+                <Grid item xs={3}>
+                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
+                </Grid>
+                <Grid item xs={2}>
+                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
+                </Grid>
+                <Grid item xs={2}>
+                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
+                </Grid>
+                <Grid item xs={4}>
+                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
+                </Grid>
+            </>
+        );
+    }
+
+    const dataLoadingSkeleton = () => (
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={1}>
+                <Grid container item spacing={1}>
+                    <SkeletonRow />
+                </Grid>
+            </Grid>
+        </Box>
+    );
 
     return (
         <>
@@ -66,7 +107,7 @@ export default function DeviceList() {
             <AlertModal />
             <Box sx={{ height: '80vh', width: '100%' }}>
                 <DataGrid
-                    rows={devicesData}
+                    rows={loading ? [] : devicesData}
                     columns={columns}
                     initialState={{
                         pagination: {
@@ -79,7 +120,11 @@ export default function DeviceList() {
                     checkboxSelection
                     disableRowSelectionOnClick
                     disableColumnMenu
-                />
+                    slots={{
+                        loadingOverlay: dataLoadingSkeleton
+                    }}
+                    loading={loading}
+                ></DataGrid>
             </Box>
         </>
     );
