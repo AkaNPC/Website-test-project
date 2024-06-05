@@ -7,6 +7,7 @@ import { useState, useContext, useEffect } from 'react';
 import DataContext from '../../context/DataProvider';
 import AlertModal from '../../components/modal/AlertModal';
 
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -50,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function SearchField() {
-    const { email, password, devicesData, toggleShowModal, setDevicesData, setErrorMsg } = useContext(DataContext);
+    const { email, password, devicesData, toggleShowModal, setDevicesData, setErrorMsg, setLoading } = useContext(DataContext);
     const [id, setId] = useState(0);
 
     useEffect(() => {
@@ -58,11 +59,14 @@ export default function SearchField() {
 
     const fetchDeviceData = async () => {
         try {
+            setLoading(true);
             const response = await getDeviceById(id, email, password);
             if (!response.id) {
+                setLoading(false);
                 setErrorMsg('Устройства с данным id нет в базе. Проверьте еще раз id');
                 toggleShowModal(true);
             } else {
+                setLoading(false);
                 setDevicesData([response]);
             }
         }
