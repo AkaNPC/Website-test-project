@@ -11,24 +11,25 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#57b4e1',
-      contrastText: '#ffffff',
-      dark: '#2d3449',
+      main: '#507fe3',
+      dark: '#2f4d87',
       light: '#639dcc',
+      contrastText: '#ffffff'
     },
     secondary: {
-      main: '#3f86ba',
+      main: '#4b44f4',
+      dark: 'rgb(52, 47, 170)',
+      light: 'rgb(111, 105, 246)',
       contrastText: '#ffffff',
-      dark: '#2d3449',
     },
     text: {
-      primary: '#2d3449',
-      secondary: '#2d3449',
+      primary: '#37405c',
+      secondary: '#639dcc',
       disabled: '#d1d2d5',
     },
     background: {
       default: '#ffffff',
-      paper: '#639dcc'
+      paper: '#ffffff'
     },
   },
   mixins: {
