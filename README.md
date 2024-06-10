@@ -9,6 +9,7 @@ It's my implementation of a Tech task. Techs/tools used:
 - MUI
 - React router
 - Axios
+- React Hook Form
 
 ## Demo
 
@@ -41,10 +42,11 @@ It's my implementation of a Tech task. Techs/tools used:
 ## Features
 
 - You need to login/authenticate for going to DeviceList page (protected route)
-- If you don't have email, password for login (server has basic auth method), you can request them by text me a message to email (see [Links](#links))
-- You will see Modal error window, if login is failed (empty fields, incorrect password etc.)
+- If you don't have email, password for login (server has basic auth method), you can request them by sending a message to my email (see [Links](#links)). I'll add some registration form and demo-login mode for users later
+- You can check validation pattern rules, including email and password regex in Login file
+- You'll see a Modal error window, if server authorization will failed (incorrect login/password or some server errors)
 - After successful auth you will redirect to Home page
-- You can logout by clicking Profile - Logout button in NavBar (with redirection to Login page)
+- You can login / logout by clicking Profile => Login / Logout button in NavBar (with redirection to Login page)
 - In DeviceList page you can click Show All for rendering all devices list from API data or find only one device by entering specific id in Search input field. Server data object has only two id by default (2 and 9).
 - If you'll enter other id values in Search input field, you'll get an error (Modal window)
 - You can change colors of app elements (text, bg etc.) by changing color codes in custom MUI theme creator in main.tsx file (root directory)
