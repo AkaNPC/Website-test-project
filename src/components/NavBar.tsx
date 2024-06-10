@@ -22,7 +22,7 @@ function formatLinkTo(pageName: string) {
 export default function NavBar() {
 
     const navigate = useNavigate()
-    const { authStatus, setAuthStatus, setEmail, setPassword, setDevicesData } = useContext(DataContext);
+    const { setFormValues, authStatus, setAuthStatus, setDevicesData } = useContext(DataContext);
     const [open, setOpen] = useState(false);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -47,8 +47,7 @@ export default function NavBar() {
 
     const handleLogout = () => {
         setAuthStatus(false);
-        setEmail("");
-        setPassword("");
+        setFormValues({ email: "", password: "" });
         navigate('/login')
     }
 

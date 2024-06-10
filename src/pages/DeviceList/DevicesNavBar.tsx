@@ -9,7 +9,7 @@ import AlertModal from '../../components/modal/AlertModal';
 
 export default function DevicesNavBar() {
 
-    const { email, password, devicesData, setDevicesData, toggleShowModal, setErrorMsg, setLoading } = useContext(DataContext);
+    const { formValues: { email, password }, devicesData, setDevicesData, toggleShowModal, setErrorMsg, setLoading } = useContext(DataContext);
 
     useEffect(() => {
     }, [devicesData])

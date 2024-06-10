@@ -51,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function SearchField() {
-    const { email, password, devicesData, toggleShowModal, setDevicesData, setErrorMsg, setLoading } = useContext(DataContext);
+    const { formValues: { email, password }, devicesData, toggleShowModal, setDevicesData, setErrorMsg, setLoading } = useContext(DataContext);
     const [id, setId] = useState(0);
 
     useEffect(() => {

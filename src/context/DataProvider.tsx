@@ -1,13 +1,14 @@
 import { useState, createContext, ReactNode } from "react";
 import { Dispatch, SetStateAction } from "react";
 
-
 interface IDataContext {
     authStatus: boolean;
     showModal: boolean;
     errorMsg: string;
-    email: string;
-    password: string;
+    formValues: {
+        email: string;
+        password: string
+    };
     loading: boolean;
     devicesData: {
         id: number;
@@ -19,8 +20,10 @@ interface IDataContext {
     setAuthStatus: Dispatch<SetStateAction<boolean>>
     toggleShowModal: Dispatch<SetStateAction<boolean>>
     setErrorMsg: Dispatch<SetStateAction<string>>
-    setEmail: Dispatch<SetStateAction<string>>
-    setPassword: Dispatch<SetStateAction<string>>
+    setFormValues: Dispatch<SetStateAction<{
+        email: string;
+        password: string
+    }>>
     setLoading: Dispatch<SetStateAction<boolean>>
     setDevicesData: Dispatch<SetStateAction<{
         id: number;
@@ -35,8 +38,10 @@ const DataContext = createContext<IDataContext>({
     authStatus: false,
     showModal: false,
     errorMsg: "",
-    email: "",
-    password: "",
+    formValues: {
+        email: "",
+        password: ""
+    },
     loading: false,
     devicesData: {
         id: 0,
@@ -48,8 +53,7 @@ const DataContext = createContext<IDataContext>({
     setAuthStatus: () => { },
     toggleShowModal: () => { },
     setErrorMsg: () => { },
-    setEmail: () => { },
-    setPassword: () => { },
+    setFormValues: () => { },
     setLoading: () => { },
     setDevicesData: () => { }
 });
@@ -62,8 +66,10 @@ export const DataProvider = ({ children }: StatusProps) => {
     const [authStatus, setAuthStatus] = useState(false);
     const [showModal, toggleShowModal] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [formValues, setFormValues] = useState({
+        email: "",
+        password: ""
+    });
     const [loading, setLoading] = useState(false);
     const [devicesData, setDevicesData] = useState([{
         id: 0,
@@ -75,8 +81,8 @@ export const DataProvider = ({ children }: StatusProps) => {
 
     return (
         <DataContext.Provider value={{
-            authStatus, showModal, errorMsg, email, password, loading, devicesData,
-            setAuthStatus, toggleShowModal, setErrorMsg, setEmail, setPassword, setLoading, setDevicesData
+            authStatus, showModal, errorMsg, formValues, loading, devicesData,
+            setAuthStatus, toggleShowModal, setErrorMsg, setFormValues, setLoading, setDevicesData
         }}>
             {children}
         </DataContext.Provider>
