@@ -30,13 +30,13 @@ function Copyright() {
 
 export default function Login() {
 
-    const { formValues: { email, password }, setErrorMsg, toggleShowModal, setAuthStatus, setFormValues } = useContext(DataContext);
+    const { formValues: { email, password }, authStatus, setErrorMsg, toggleShowModal, setAuthStatus, setFormValues } = useContext(DataContext);
 
     useEffect(() => {
-        if (password) {
+        if (password && !authStatus) {
             fetchSession()
         }
-    }, [password])
+    })
 
     const navigate = useNavigate();
 
