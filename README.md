@@ -5,6 +5,7 @@ It's my implementation of a Tech task. Techs/tools used:
 
 - Vite
 - React
+- Redux Toolkit
 - Typescript
 - MUI
 - React router
@@ -54,42 +55,53 @@ It's my implementation of a Tech task. Techs/tools used:
 ## File Structure
 
  ```sh
- ┣ public
- ┃ ┗ images
- ┃ ┃ ┣ demo.gif
- ┃ ┃ ┣ favicon.ico
- ┃ ┃ ┗ homeBgImage.jpg
- ┣ src
- ┃ ┣ components
- ┃ ┃ ┣ modal
- ┃ ┃ ┃ ┗ AlertModal.tsx
- ┃ ┃ ┗ NavBar.tsx
- ┃ ┣ context
- ┃ ┃ ┗ DataProvider.tsx
- ┃ ┣ pages
- ┃ ┃ ┣ DeviceList
- ┃ ┃ ┃ ┣ DeviceList.tsx
- ┃ ┃ ┃ ┣ DevicesNavBar.tsx
- ┃ ┃ ┃ ┗ SearchField.tsx
- ┃ ┃ ┣ Home.tsx
- ┃ ┃ ┗ Login.tsx
- ┃ ┣ services
- ┃ ┃ ┗ apiData.tsx
- ┃ ┣ utils
- ┃ ┃ ┣ formatDate.tsx
- ┃ ┃ ┗ PrivateRoute.tsx
- ┃ ┣ App.tsx
- ┃ ┣ main.tsx
- ┃ ┗ vite-env.d.ts
- ┣ .eslintrc.cjs
- ┣ .gitignore
- ┣ index.html
- ┣ package-lock.json
- ┣ package.json
- ┣ README.md
- ┣ tsconfig.json
- ┣ tsconfig.node.json
- ┗ vite.config.ts
+📦my-test-app
+ ┣ 📂public
+ ┃ ┗ 📂images
+ ┃ ┃ ┣ 📜demo.gif
+ ┃ ┃ ┣ 📜favicon.ico
+ ┃ ┃ ┗ 📜homeBgImage.jpg
+ ┣ 📂src
+ ┃ ┣ 📂app
+ ┃ ┃ ┣ 📜hooks.tsx
+ ┃ ┃ ┗ 📜store.tsx
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂modal
+ ┃ ┃ ┃ ┗ 📜AlertModal.tsx
+ ┃ ┃ ┗ 📜NavBar.tsx
+ ┃ ┣ 📂features
+ ┃ ┃ ┣ 📜authStatusSlice.tsx
+ ┃ ┃ ┣ 📜devicesDataSlice.tsx
+ ┃ ┃ ┣ 📜errorMsgSlice.tsx
+ ┃ ┃ ┣ 📜formDataSlice.tsx
+ ┃ ┃ ┣ 📜loadSkeletonSlice.tsx
+ ┃ ┃ ┗ 📜modalSlice.tsx
+ ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📂DeviceList
+ ┃ ┃ ┃ ┣ 📜DeviceList.tsx
+ ┃ ┃ ┃ ┣ 📜DevicesNavBar.tsx
+ ┃ ┃ ┃ ┗ 📜SearchField.tsx
+ ┃ ┃ ┣ 📜Home.tsx
+ ┃ ┃ ┗ 📜Login.tsx
+ ┃ ┣ 📂services
+ ┃ ┃ ┗ 📜apiData.tsx
+ ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜formatDate.tsx
+ ┃ ┃ ┗ 📜PrivateRoute.tsx
+ ┃ ┣ 📜App.tsx
+ ┃ ┣ 📜main.tsx
+ ┃ ┗ 📜vite-env.d.ts
+ ┣ 📜.env
+ ┣ 📜.eslintrc.cjs
+ ┣ 📜.gitignore
+ ┣ 📜index.html
+ ┣ 📜LICENSE
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┣ 📜tsconfig.json
+ ┣ 📜tsconfig.node.json
+ ┗ 📜vite.config.ts
    ```
 
 ## Links
