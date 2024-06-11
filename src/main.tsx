@@ -4,7 +4,8 @@ import App from './App.tsx'
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
-import { DataProvider } from './context/DataProvider.tsx'
+import { Provider } from 'react-redux';
+import { store } from './app/store.tsx';
 
 
 const theme = createTheme({
@@ -44,9 +45,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <DataProvider>
+      <Provider store={store}>
         <App />
-      </DataProvider>
+      </Provider>
     </ThemeProvider>
   </React.StrictMode>
 )

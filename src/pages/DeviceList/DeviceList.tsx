@@ -1,15 +1,15 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Grid, Skeleton, Box } from '@mui/material';
 import DevicesNavBar from './DevicesNavBar';
-import DataContext from '../../context/DataProvider';
-import { useContext } from 'react';
 import { formatDate } from '../../utils/formatDate';
 import AlertModal from '../../components/modal/AlertModal';
+import { useAppSelector } from '../../app/hooks';
 
 
 export default function DeviceList() {
 
-    const { devicesData, loading } = useContext(DataContext);
+    const loadSkeleton = useAppSelector((state) => state.loadSleleton.loadSkeleton);
+    const devicesData = useAppSelector((state) => state.devicesData.devicesData);
 
     const columns: GridColDef<(typeof devicesData)[number]>[] = [
         {
@@ -107,7 +107,7 @@ export default function DeviceList() {
             <AlertModal />
             <Box sx={{ height: '80vh', width: '100%' }}>
                 <DataGrid
-                    rows={loading ? [] : devicesData}
+                    rows={loadSkeleton ? [] : devicesData}
                     columns={columns}
                     initialState={{
                         pagination: {
@@ -123,7 +123,7 @@ export default function DeviceList() {
                     slots={{
                         loadingOverlay: dataLoadingSkeleton
                     }}
-                    loading={loading}
+                    loading={loadSkeleton}
                 ></DataGrid>
             </Box>
         </>

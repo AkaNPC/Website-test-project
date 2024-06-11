@@ -3,9 +3,13 @@ import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { getDeviceById } from '../../services/apiData';
-import { useState, useContext, useEffect } from 'react';
-import DataContext from '../../context/DataProvider';
+import { useState, useEffect } from 'react';
 import AlertModal from '../../components/modal/AlertModal';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { hideSkeleton, showSkeleton } from '../../features/loadSkeletonSlice';
+import { setErrorMsg } from '../../features/errorMsgSlice';
+import { showModal } from '../../features/modalSlice';
+import { resetDevicesData, setDevicesData } from '../../features/devicesDataSlice';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -51,7 +55,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function SearchField() {
-    const { formValues: { email, password }, devicesData, toggleShowModal, setDevicesData, setErrorMsg, setLoading } = useContext(DataContext);
+
+    const dispatch = useAppDispatch();
+    const devicesData = useAppSelector((state) => state.devicesData.devicesData);
+    const email = useAppSelector((state) => state.formData.formData.email);
+    const password = useAppSelector((state) => state.formData.formData.password);
+
     const [id, setId] = useState(0);
 
     useEffect(() => {
@@ -59,15 +68,16 @@ export default function SearchField() {
 
     const fetchDeviceData = async () => {
         try {
-            setLoading(true);
+            dispatch(showSkeleton());
             const response = await getDeviceById(id, email, password);
             if (!response.id) {
-                setLoading(false);
-                setErrorMsg('Устройства с данным id нет в базе. Проверьте еще раз id');
-                toggleShowModal(true);
+                dispatch(hideSkeleton());
+                dispatch(setErrorMsg("Устройства с данным id нет в базе. Проверьте еще раз id"));
+                dispatch(showModal());
+                dispatch(resetDevicesData())
             } else {
-                setLoading(false);
-                setDevicesData([response]);
+                dispatch(hideSkeleton());
+                dispatch(setDevicesData([response]));
             }
         }
         catch (error) {

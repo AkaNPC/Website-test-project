@@ -4,8 +4,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import DataContext from '../context/DataProvider';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { setAuthStatusFalse } from '../features/authStatusSlice';
+import { resetFormData } from '../features/formDataSlice';
+import { resetDevicesData } from '../features/devicesDataSlice';
 
 
 const linksNames = ['home', 'device list', 'login'];
@@ -21,10 +24,11 @@ function formatLinkTo(pageName: string) {
 
 export default function NavBar() {
 
-    const navigate = useNavigate()
-    const { setFormValues, authStatus, setAuthStatus, setDevicesData } = useContext(DataContext);
-    const [open, setOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const authStatus = useAppSelector((state) => state.authStatus.authStatus);
 
+    const navigate = useNavigate()
+    const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
@@ -46,8 +50,8 @@ export default function NavBar() {
     };
 
     const handleLogout = () => {
-        setAuthStatus(false);
-        setFormValues({ email: "", password: "" });
+        dispatch(setAuthStatusFalse());
+        dispatch(resetFormData());
         navigate('/login')
     }
 
@@ -122,7 +126,7 @@ export default function NavBar() {
             key={linkName}
             to={'/' + formatLinkTo(linkName)}
             style={{ textDecoration: 'none' }}>
-            <Button onClick={() => setDevicesData([])}
+            <Button onClick={() => dispatch(resetDevicesData())}
                 sx={{
                     my: 2, color: { xs: '#37405c', sm: '#37405c', md: '#ffffff', lg: '#ffffff', xl: '#ffffff' },
                     "&:hover": {

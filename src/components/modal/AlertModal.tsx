@@ -1,21 +1,24 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material/';
-import DataContext from '../../context/DataProvider';
-import { useContext } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { resetErrorMsg } from '../../features/errorMsgSlice';
+import { hideModal } from '../../features/modalSlice';
 
 
 export default function AlertModal() {
-  const { showModal, toggleShowModal } = useContext(DataContext);
-  const { errorMsg, setErrorMsg } = useContext(DataContext);
+
+  const modal = useAppSelector((state) => state.modal.modal);
+  const errorMsg = useAppSelector((state) => state.errorMsg.errorMsg);
+  const dispatch = useAppDispatch();
 
   const handleClose = () => {
-    setErrorMsg("");
-    toggleShowModal(false);
+    dispatch(resetErrorMsg());
+    dispatch(hideModal());
   };
 
 
   return (
     <Dialog
-      open={showModal}
+      open={modal}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"

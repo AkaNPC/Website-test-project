@@ -1,7 +1,6 @@
 import Login from "./pages/Login";
 import DeviceList from "./pages/DeviceList/DeviceList";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import { DataProvider } from "./context/DataProvider";
 import PrivateRoute from "./utils/PrivateRoute";
 import NavBar from "./components/NavBar";
 import { Outlet } from "react-router-dom";
@@ -36,8 +35,6 @@ export default function App() {
 
 
   return (
-    <DataProvider>
-      <RouterProvider router={router} />
-    </DataProvider>
+    <RouterProvider router={router} />
   )
 }

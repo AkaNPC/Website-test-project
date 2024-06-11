@@ -1,18 +1,21 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Typography, Container, Box, Grid, Link, Checkbox, FormControlLabel, TextField, CssBaseline, Button, Avatar } from '@mui/material/';
-import { useContext, useEffect } from 'react';
-import DataContext from '../context/DataProvider';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { setAuthSession } from '../services/apiData';
 import AlertModal from '../components/modal/AlertModal';
 import { useForm, Controller } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { setFormData } from '../features/formDataSlice';
+import { setAuthStatusFalse, setAuthStatusTrue } from '../features/authStatusSlice';
+import { setErrorMsg } from '../features/errorMsgSlice';
+import { showModal } from '../features/modalSlice';
 
 
 interface IFormInputs {
     email: string;
     password: string;
 }
-
 
 function Copyright() {
     return (
@@ -30,7 +33,10 @@ function Copyright() {
 
 export default function Login() {
 
-    const { formValues: { email, password }, authStatus, setErrorMsg, toggleShowModal, setAuthStatus, setFormValues } = useContext(DataContext);
+    const dispatch = useAppDispatch();
+    const authStatus = useAppSelector((state) => state.authStatus.authStatus);
+    const email = useAppSelector((state) => state.formData.formData.email);
+    const password = useAppSelector((state) => state.formData.formData.password);
 
     useEffect(() => {
         if (password && !authStatus) {
@@ -44,9 +50,9 @@ export default function Login() {
         mode: "all"
     });
 
-    const formSubmit = (formData: IFormInputs, e?: React.BaseSyntheticEvent) => {
+    const formSubmit = (data: IFormInputs, e?: React.BaseSyntheticEvent) => {
         e?.preventDefault();
-        setFormValues(formData);
+        dispatch(setFormData(data));
     }
 
     const fetchSession = async () => {
@@ -54,16 +60,16 @@ export default function Login() {
             const response = await setAuthSession(email, password);
             console.log(response);
             if (response?.status === 200) {
-                setAuthStatus(true);
+                dispatch(setAuthStatusTrue());
                 navigate('/');
             } else if (response?.status === 401) {
-                setErrorMsg("Email или Пароль неверен. Вы не авторизованы");
-                toggleShowModal(true);
-                setAuthStatus(false);
+                dispatch(setErrorMsg("Email или Пароль неверен. Вы не авторизованы"));
+                dispatch(showModal());
+                dispatch(setAuthStatusFalse());
             } else {
-                setErrorMsg('Вход не выполнен...');
-                toggleShowModal(true);
-                setAuthStatus(false);
+                dispatch(setErrorMsg('Вход не выполнен...'));
+                dispatch(showModal());
+                dispatch(setAuthStatusFalse());
             }
         } catch (error) {
             console.log(error)
@@ -72,6 +78,7 @@ export default function Login() {
 
     const emailPattern = /^(?=.{1,256})(?=.{1,64}@.{0,63}.{1,255}$)(((?:[A-Za-z0-9_%!#$&'*+/=?^`{|}~-]+\.)*[A-Za-z0-9_%!#$&'*+/=?^`{|}~-]){1,64})+@(?:[A-Za-z0-9]+(\.|-))*(?:[A-Za-z0-9]+(\.|-))*[A-Za-z]{1,63}$/;
     const passwordPattern = /[A-Za-z0-9/~`! @#$%^&*()_+={[}:;"'<,>.?-]+$/;
+
 
     return (
         <Container component="main" maxWidth="xs">
@@ -106,13 +113,6 @@ export default function Login() {
                                 label="Email Address"
                                 autoComplete="email"
                                 helperText={error ? error.message : ''}
-                            // value={formValues.email}
-                            // onChange={(e) => setValues((prevState) => {
-                            //     return ({
-                            //         ...prevState,
-                            //         email: e.target.value
-                            //     });
-                            // })}
                             />
                         )}
                         rules={{
@@ -146,13 +146,6 @@ export default function Login() {
                                 label="Password"
                                 autoComplete="current-password"
                                 helperText={error ? error?.message : ''}
-                            // value={formValues.password}
-                            // onChange={(e) => setValues((prevState) => {
-                            //     return ({
-                            //         ...prevState,
-                            //         password: e.target.value
-                            //     });
-                            // })}
                             />
                         )}
                         rules={{

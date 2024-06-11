@@ -2,29 +2,36 @@ import * as React from 'react';
 import { AppBar, Box, Toolbar, Container, Button } from '@mui/material/';
 import SearchField from './SearchField';
 import { getAllDevices } from '../../services/apiData';
-import { useContext, useEffect } from 'react';
-import DataContext from '../../context/DataProvider';
+import { useEffect } from 'react';
 import AlertModal from '../../components/modal/AlertModal';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { hideSkeleton, showSkeleton } from '../../features/loadSkeletonSlice';
+import { setErrorMsg } from '../../features/errorMsgSlice';
+import { showModal } from '../../features/modalSlice';
+import { setDevicesData } from '../../features/devicesDataSlice';
 
 
 export default function DevicesNavBar() {
 
-    const { formValues: { email, password }, devicesData, setDevicesData, toggleShowModal, setErrorMsg, setLoading } = useContext(DataContext);
+    const devicesData = useAppSelector((state) => state.devicesData.devicesData);
+    const email = useAppSelector((state) => state.formData.formData.email);
+    const password = useAppSelector((state) => state.formData.formData.password);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
     }, [devicesData])
 
     const fetchAllDevicesData = async () => {
         try {
-            setLoading(true);
+            dispatch(showSkeleton());
             const response = await getAllDevices(email, password);
             if (response.length === 0) {
-                setLoading(false);
-                setErrorMsg('Не получилось загрузить данные. Попробуйте позже');
-                toggleShowModal(true);
+                dispatch(hideSkeleton());
+                dispatch(setErrorMsg("Не получилось загрузить данные. Попробуйте позже"));
+                dispatch(showModal());
             } else {
-                setLoading(false);
-                setDevicesData(response);
+                dispatch(hideSkeleton());
+                dispatch(setDevicesData(response));
             }
         }
         catch (error) {
