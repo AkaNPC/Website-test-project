@@ -1,21 +1,31 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Typography, Container, Box, Grid, Link, Checkbox, FormControlLabel, TextField, CssBaseline, Button, Avatar } from '@mui/material/';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { setAuthSession } from '../services/apiData';
 import AlertModal from '../components/modal/AlertModal';
 import { useForm, Controller } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { setFormData } from '../features/formDataSlice';
 import { setAuthStatusFalse, setAuthStatusTrue } from '../features/authStatusSlice';
 import { setErrorMsg } from '../features/errorMsgSlice';
 import { showModal } from '../features/modalSlice';
+import { setAuthToken } from '../features/authTokenSlice';
 
 
 interface IFormInputs {
     email: string;
     password: string;
 }
+
+export const emailPattern = {
+    value: /^(?=.{1,256})(?=.{1,64}@.{0,63}.{1,255}$)(((?:[A-Za-z0-9_%!#$&'*+/=?^`{|}~-]+\.)*[A-Za-z0-9_%!#$&'*+/=?^`{|}~-]){1,64})+@(?:[A-Za-z0-9]+(\.|-))*(?:[A-Za-z0-9]+(\.|-))*[A-Za-z]{1,63}$/,
+    message: "Недопустимый Email. Проверьте пожалуйста введенные данные",
+};
+
+export const passwordPattern = {
+    value: /[A-Za-z0-9/~`! @#$%^&*()_+={[}:;"'<,>.?-]+$/,
+    message: "Введен недопустимый символ. Проверьте пожалуйста данные",
+};
 
 function Copyright() {
     return (
@@ -35,14 +45,15 @@ export default function Login() {
 
     const dispatch = useAppDispatch();
     const authStatus = useAppSelector((state) => state.authStatus.authStatus);
-    const email = useAppSelector((state) => state.formData.formData.email);
-    const password = useAppSelector((state) => state.formData.formData.password);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     useEffect(() => {
-        if (password && !authStatus) {
+        if (email && password && !authStatus) {
             fetchSession()
         }
-    })
+        console.log('рендер Useeffect')
+    }, [email, password])
 
     const navigate = useNavigate();
 
@@ -52,16 +63,19 @@ export default function Login() {
 
     const formSubmit = (data: IFormInputs, e?: React.BaseSyntheticEvent) => {
         e?.preventDefault();
-        dispatch(setFormData(data));
+        setEmail(data.email);
+        setPassword(data.password)
     }
 
     const fetchSession = async () => {
         try {
             const response = await setAuthSession(email, password);
-            console.log(response);
             if (response?.status === 200) {
                 dispatch(setAuthStatusTrue());
+                dispatch(setAuthToken(email + ":" + password))
                 navigate('/');
+                setEmail("");
+                setPassword("");
             } else if (response?.status === 401) {
                 dispatch(setErrorMsg("Email или Пароль неверен. Вы не авторизованы"));
                 dispatch(showModal());
@@ -75,9 +89,6 @@ export default function Login() {
             console.log(error)
         }
     }
-
-    const emailPattern = /^(?=.{1,256})(?=.{1,64}@.{0,63}.{1,255}$)(((?:[A-Za-z0-9_%!#$&'*+/=?^`{|}~-]+\.)*[A-Za-z0-9_%!#$&'*+/=?^`{|}~-]){1,64})+@(?:[A-Za-z0-9]+(\.|-))*(?:[A-Za-z0-9]+(\.|-))*[A-Za-z]{1,63}$/;
-    const passwordPattern = /[A-Za-z0-9/~`! @#$%^&*()_+={[}:;"'<,>.?-]+$/;
 
 
     return (
@@ -117,10 +128,7 @@ export default function Login() {
                         )}
                         rules={{
                             required: "Поле Email обязательно к заполнению",
-                            pattern: {
-                                value: emailPattern,
-                                message: "Недопустимый Email. Проверьте пожалуйста введенные данные",
-                            },
+                            pattern: emailPattern,
                             minLength: {
                                 value: 3,
                                 message: "Email должен состоять минимум из 3 символов",
@@ -150,10 +158,7 @@ export default function Login() {
                         )}
                         rules={{
                             required: "Поле Password обязательно к заполнению",
-                            pattern: {
-                                value: passwordPattern,
-                                message: "Введен недопустимый символ. Проверьте пожалуйста данные",
-                            },
+                            pattern: passwordPattern,
                             minLength: {
                                 value: 6,
                                 message: "Пароль должен состоять минимум из 6 символов",
