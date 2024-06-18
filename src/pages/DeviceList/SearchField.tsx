@@ -4,12 +4,12 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { getDeviceById } from '../../services/apiData';
 import { useState, useEffect } from 'react';
-import AlertModal from '../../components/modal/AlertModal';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { hideSkeleton, showSkeleton } from '../../features/loadSkeletonSlice';
 import { setErrorMsg } from '../../features/errorMsgSlice';
 import { showModal } from '../../features/modalSlice';
 import { resetDevicesData, setDevicesData } from '../../features/devicesDataSlice';
+import { encodeString } from '../../utils/encodeString';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -58,9 +58,8 @@ export default function SearchField() {
 
     const dispatch = useAppDispatch();
     const devicesData = useAppSelector((state) => state.devicesData.devicesData);
-    const email = useAppSelector((state) => state.formData.formData.email);
-    const password = useAppSelector((state) => state.formData.formData.password);
-
+    const authToken = useAppSelector((state) => state.authToken.authToken);
+    const encodedToken = encodeString(authToken);
     const [id, setId] = useState(0);
 
     useEffect(() => {
@@ -69,7 +68,7 @@ export default function SearchField() {
     const fetchDeviceData = async () => {
         try {
             dispatch(showSkeleton());
-            const response = await getDeviceById(id, email, password);
+            const response = await getDeviceById(id, encodedToken);
             if (!response.id) {
                 dispatch(hideSkeleton());
                 dispatch(setErrorMsg("Устройства с данным id нет в базе. Проверьте еще раз id"));
@@ -93,7 +92,7 @@ export default function SearchField() {
 
     return (
         <Box component="form" name="search" onSubmit={handleSubmit}>
-            <AlertModal />
+            {/* <AlertModal /> */}
             <Search>
                 <SearchIconWrapper>
                     <SearchIcon />
