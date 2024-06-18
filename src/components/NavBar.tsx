@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { setAuthStatusFalse } from '../features/authStatusSlice';
-import { resetFormData } from '../features/formDataSlice';
 import { resetDevicesData } from '../features/devicesDataSlice';
+import { resetAuthToken } from '../features/authTokenSlice';
 
 
 const linksNames = ['home', 'device list', 'login'];
@@ -51,7 +51,7 @@ export default function NavBar() {
 
     const handleLogout = () => {
         dispatch(setAuthStatusFalse());
-        dispatch(resetFormData());
+        dispatch(resetAuthToken());
         navigate('/login')
     }
 
@@ -191,8 +191,7 @@ export default function NavBar() {
                         aria-haspopup="true"
                         onClick={handleProfileMenuOpen}
                         color="inherit"
-                    >
-                        <AccountCircle />
+                    ><AccountCircle />
                     </IconButton>
                 </Box>
             </Toolbar>
