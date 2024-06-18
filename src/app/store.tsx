@@ -2,9 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authStatusReducer } from "../features/authStatusSlice";
 import { devicesDataReducer } from "../features/devicesDataSlice";
 import { errorMsgReducer } from "../features/errorMsgSlice";
-import { formDataReducer } from "../features/formDataSlice";
 import { loadSkeletonReducer } from "../features/loadSkeletonSlice";
 import { modalReducer } from "../features/modalSlice";
+import { authTokenReducer } from "../features/authTokenSlice";
 
 
 
@@ -13,9 +13,9 @@ export const store = configureStore({
         authStatus: authStatusReducer,
         devicesData: devicesDataReducer,
         errorMsg: errorMsgReducer,
-        formData: formDataReducer,
         loadSleleton: loadSkeletonReducer,
         modal: modalReducer,
+        authToken: authTokenReducer
     }
 })
 
