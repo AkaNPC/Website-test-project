@@ -2,29 +2,25 @@ import * as React from 'react';
 import { AppBar, Box, Toolbar, Container, Button } from '@mui/material/';
 import SearchField from './SearchField';
 import { getAllDevices } from '../../services/apiData';
-import { useEffect } from 'react';
-import AlertModal from '../../components/modal/AlertModal';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch, } from '../../app/hooks';
 import { hideSkeleton, showSkeleton } from '../../features/loadSkeletonSlice';
 import { setErrorMsg } from '../../features/errorMsgSlice';
 import { showModal } from '../../features/modalSlice';
 import { setDevicesData } from '../../features/devicesDataSlice';
+import { useAppSelector } from '../../app/hooks';
+import { encodeString } from '../../utils/encodeString';
 
 
 export default function DevicesNavBar() {
 
-    const devicesData = useAppSelector((state) => state.devicesData.devicesData);
-    const email = useAppSelector((state) => state.formData.formData.email);
-    const password = useAppSelector((state) => state.formData.formData.password);
+    const authToken = useAppSelector((state) => state.authToken.authToken);
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-    }, [devicesData])
+    const encodedToken = encodeString(authToken);
 
     const fetchAllDevicesData = async () => {
         try {
             dispatch(showSkeleton());
-            const response = await getAllDevices(email, password);
+            const response = await getAllDevices(encodedToken);
             if (response.length === 0) {
                 dispatch(hideSkeleton());
                 dispatch(setErrorMsg("Не получилось загрузить данные. Попробуйте позже"));
@@ -47,7 +43,6 @@ export default function DevicesNavBar() {
     return (
         <>
             <AppBar position="static" color='secondary'>
-                <AlertModal />
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Box sx={{ flexGrow: 1, display: 'flex' }}>
