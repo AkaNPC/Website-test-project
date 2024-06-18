@@ -21,17 +21,14 @@ export const setAuthSession = async (email: string, pwd: string) => {
     }
 }
 
-const getSomeData = async (url: string, email: string, pwd: string) => {
+const getSomeData = async (url: string, token: string) => {
     try {
         const response = await axios.get((_apiData + url), {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": "Basic " + token
             },
             validateStatus: () => true,
-            auth: {
-                username: email,
-                password: pwd
-            }
         });
         if (url === "devices/") {
             return (response.data)
@@ -43,10 +40,10 @@ const getSomeData = async (url: string, email: string, pwd: string) => {
     }
 }
 
-export const getAllDevices = async (email: string, pwd: string) => {
-    return await getSomeData("devices/", email, pwd);
+export const getAllDevices = async (token: string) => {
+    return await getSomeData("devices/", token);
 }
 
-export const getDeviceById = async (id: number, email: string, pwd: string) => {
-    return await getSomeData("devices/" + `${id}`, email, pwd);
+export const getDeviceById = async (id: number, token: string) => {
+    return await getSomeData("devices/" + `${id}`, token);
 }
