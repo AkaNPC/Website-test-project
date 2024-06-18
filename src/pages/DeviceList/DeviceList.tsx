@@ -1,9 +1,10 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Grid, Skeleton, Box } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import DevicesNavBar from './DevicesNavBar';
 import { formatDate } from '../../utils/formatDate';
 import AlertModal from '../../components/modal/AlertModal';
 import { useAppSelector } from '../../app/hooks';
+import DevicesDataSkeleton from './DevicesDataSkeleton';
 
 
 export default function DeviceList() {
@@ -69,33 +70,11 @@ export default function DeviceList() {
         }
     ];
 
-    function SkeletonRow() {
-        return (
-            <>
-                <Grid item xs={1}>
-                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
-                </Grid>
-                <Grid item xs={3}>
-                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
-                </Grid>
-                <Grid item xs={2}>
-                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
-                </Grid>
-                <Grid item xs={2}>
-                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
-                </Grid>
-                <Grid item xs={4}>
-                    <Skeleton width={'100%'} animation="wave" variant="rectangular" height={'4vh'} />
-                </Grid>
-            </>
-        );
-    }
-
     const dataLoadingSkeleton = () => (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1}>
                 <Grid container item spacing={1}>
-                    <SkeletonRow />
+                    <DevicesDataSkeleton />
                 </Grid>
             </Grid>
         </Box>
