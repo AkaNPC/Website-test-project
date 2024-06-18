@@ -6,7 +6,13 @@ export default function Home() {
     return (
         <>
             <Box sx={{
-                backgroundImage: { xs: `linear-gradient(0deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, sm: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, md: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, lg: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`, xl: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')` },
+                backgroundImage: {
+                    xs: `linear-gradient(0deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
+                    sm: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
+                    md: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
+                    lg: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
+                    xl: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`
+                },
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
                 height: { xs: '40vh', sm: '40vh', md: '70vh', lg: '70vh', xl: '70vh' },
