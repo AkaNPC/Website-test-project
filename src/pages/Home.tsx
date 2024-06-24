@@ -2,16 +2,17 @@ import { Box, Typography } from '@mui/material';
 
 
 export default function Home() {
+    const imgGradientOtherScreens = `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`;
 
     return (
         <>
             <Box sx={{
                 backgroundImage: {
                     xs: `linear-gradient(0deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
-                    sm: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
-                    md: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
-                    lg: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`,
-                    xl: `linear-gradient(90deg, rgba(250,247,242,0) 0%, rgba(87,180,225,0.9) 80%),url('/images/homeBgImage.jpg')`
+                    sm: imgGradientOtherScreens,
+                    md: imgGradientOtherScreens,
+                    lg: imgGradientOtherScreens,
+                    xl: imgGradientOtherScreens
                 },
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
