@@ -71,14 +71,15 @@ It's my implementation of a Tech task. Techs/tools used:
  ┃ ┃ ┗ 📜NavBar.tsx
  ┃ ┣ 📂features
  ┃ ┃ ┣ 📜authStatusSlice.tsx
+ ┃ ┃ ┣ 📜authTokenSlice.tsx
  ┃ ┃ ┣ 📜devicesDataSlice.tsx
  ┃ ┃ ┣ 📜errorMsgSlice.tsx
- ┃ ┃ ┣ 📜formDataSlice.tsx
  ┃ ┃ ┣ 📜loadSkeletonSlice.tsx
  ┃ ┃ ┗ 📜modalSlice.tsx
  ┃ ┣ 📂pages
  ┃ ┃ ┣ 📂DeviceList
  ┃ ┃ ┃ ┣ 📜DeviceList.tsx
+ ┃ ┃ ┃ ┣ 📜DevicesDataSkeleton.tsx
  ┃ ┃ ┃ ┣ 📜DevicesNavBar.tsx
  ┃ ┃ ┃ ┗ 📜SearchField.tsx
  ┃ ┃ ┣ 📜Home.tsx
@@ -86,12 +87,12 @@ It's my implementation of a Tech task. Techs/tools used:
  ┃ ┣ 📂services
  ┃ ┃ ┗ 📜apiData.tsx
  ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜encodeString.tsx
  ┃ ┃ ┣ 📜formatDate.tsx
  ┃ ┃ ┗ 📜PrivateRoute.tsx
  ┃ ┣ 📜App.tsx
  ┃ ┣ 📜main.tsx
  ┃ ┗ 📜vite-env.d.ts
- ┣ 📜.env
  ┣ 📜.eslintrc.cjs
  ┣ 📜.gitignore
  ┣ 📜index.html
