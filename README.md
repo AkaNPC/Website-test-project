@@ -43,7 +43,7 @@ It's my implementation of a Tech task. Techs/tools used:
 ## Features
 
 - You need to login/authenticate for going to DeviceList page (protected route)
-- If you don't have email, password for login (server has basic auth method), you can request them by sending a message to my email (see [Links](#links)). I'll add some registration form and demo-login mode for users later
+- For an authentication (server has basic auth method), please use login: test@test.test, password: 123321. I'll add some registration form and demo-login mode for users later
 - You can check validation pattern rules, including email and password regex in Login file
 - You'll see a Modal error window, if server authorization will failed (incorrect login/password or some server errors)
 - After successful auth you will redirect to Home page
